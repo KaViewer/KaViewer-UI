@@ -15,7 +15,14 @@
               />
             </el-dialog>
           </el-col>
-          <el-col :span="6" :offset="12"
+          <el-col :span="6" :offset="1">
+            <el-input
+              v-model="searchTopic"
+              placeholder="Search Topic"
+              @change="doSearchTopic"
+            ></el-input>
+          </el-col>
+          <el-col :span="6" :offset="2"
             ><div class="grid-content bg-purple">
               <el-button type="primary" @click="addTopic" icon="el-icon-plus">
                 NEW
@@ -89,11 +96,13 @@ export default {
   },
   data() {
     return {
+      searchTopic: "",
       loading: true,
       clusterName: this.$route.params.clusterName,
       topicName: null,
       partitions: 0,
       tableData: [],
+      tableDataOrigin: [],
       dialogShowTopicPopup: false,
       dialogShowTopicPopupProducer: false,
       dialogFormVisibleTopicCreate: false,
@@ -111,6 +120,7 @@ export default {
         })
         .then((payload) => {
           this.tableData = payload;
+          this.tableDataOrigin = payload;
           this.loading = false;
         });
     },
@@ -138,6 +148,16 @@ export default {
       // partitions is partitionSize-1
       this.partitions = partitionSize - 1;
       this.dialogShowTopicPopupProducer = true;
+    },
+    doSearchTopic() {
+      if (!this.searchTopic) {
+        this.tableData = this.tableDataOrigin;
+        return;
+      }
+
+      this.tableData = this.tableDataOrigin.filter((data) =>
+        data.topicName.toLowerCase().includes(this.searchTopic.toLowerCase())
+      );
     },
   },
   created() {
