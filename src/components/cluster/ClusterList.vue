@@ -3,9 +3,24 @@
     <el-container>
       <NavMenu />
       <el-header style="text-align: right; font-size: 12px">
-        <el-button type="primary" @click="addCluster" icon="el-icon-plus">
-          NEW
-        </el-button>
+        <el-row :gutter="20">
+          <el-col :span="6" :offset="15">
+            <div>
+              <el-input
+                v-model="searchCluster"
+                placeholder="Search Cluster"
+                @change="doSearchCluster"
+              ></el-input>
+            </div>
+          </el-col>
+          <el-col :span="1"
+            ><div>
+              <el-button type="primary" @click="addCluster" icon="el-icon-plus">
+                NEW
+              </el-button>
+            </div></el-col
+          >
+        </el-row>
         <el-dialog
           :visible.sync="dialogFormVisible"
           @close="closeDialog('ruleForm')"
@@ -89,8 +104,10 @@ export default {
   },
   data() {
     return {
+      searchCluster: "",
       dialogFormVisible: false,
       tableData: [],
+      tableDataOrigin: [],
     };
   },
   methods: {
@@ -107,6 +124,7 @@ export default {
           });
         });
         this.tableData = items;
+        this.tableDataOrigin = items;
       });
     },
     addCluster() {
@@ -140,6 +158,16 @@ export default {
             this.$refs.popup.setFormForEdit(payload);
           });
         });
+    },
+    doSearchCluster() {
+      if (!this.searchCluster) {
+        this.tableData = this.tableDataOrigin;
+        return;
+      }
+
+      this.tableData = this.tableDataOrigin.filter((data) =>
+        data.cluster.toLowerCase().includes(this.searchCluster.toLowerCase())
+      );
     },
   },
   created() {
