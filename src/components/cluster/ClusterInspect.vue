@@ -15,14 +15,14 @@
               />
             </el-dialog>
           </el-col>
-          <el-col :span="6" :offset="1">
+          <el-col :span="6" :offset="10">
             <el-input
               v-model="searchTopic"
               placeholder="Search Topic"
               @change="doSearchTopic"
             ></el-input>
           </el-col>
-          <el-col :span="6" :offset="2"
+          <el-col :span="1" 
             ><div class="grid-content bg-purple">
               <el-button type="primary" @click="addTopic" icon="el-icon-plus">
                 NEW
