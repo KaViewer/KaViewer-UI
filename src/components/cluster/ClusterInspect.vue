@@ -5,7 +5,7 @@
       <el-header style="text-align: left; font-size: 35px">
         <el-row :gutter="20">
           <el-col :span="6" :offset="0">
-            Cluster: {{ $route.params.clusterName }}
+            {{ $route.params.clusterName }}
             <el-dialog :visible.sync="dialogShowTopicPopup">
               <TopicPopupConsumer
                 :topic="topicName"
