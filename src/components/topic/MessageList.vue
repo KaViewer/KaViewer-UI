@@ -166,7 +166,7 @@ export default {
   computed: {
     tripHeader() {
       return (msg) => {
-        if (msg === "{}") return "";
+        if (!msg || msg === "{}") return "";
         return msg.substr(0, 10) + "...";
       };
     },
