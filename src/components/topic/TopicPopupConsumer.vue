@@ -19,11 +19,7 @@
             v-model="ruleForm.partition"
             placeholder="Partition, default 0"
           >
-            <el-option
-              :label="partition"
-              :value="0"
-              :key="0"
-            ></el-option>
+            <el-option :label="partition" :value="0" :key="0"></el-option>
             <el-option
               v-for="partition in partitions"
               :label="partition"
@@ -73,7 +69,7 @@
 </template>
 <script>
 import MessageList from "./MessageList.vue";
-import getApi from '../../router/baseUrl'
+import getApi from "../../router/baseUrl";
 export default {
   components: {
     MessageList,
