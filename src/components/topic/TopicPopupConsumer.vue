@@ -19,7 +19,7 @@
             v-model="ruleForm.partition"
             placeholder="Partition, default 0"
           >
-            <el-option :label="partition" :value="0" :key="0"></el-option>
+            <el-option label="0" :value="0" :key="0"></el-option>
             <el-option
               v-for="partition in partitions"
               :label="partition"
@@ -86,6 +86,7 @@ export default {
     partitions: {
       type: Number,
       require: true,
+      default: 0
     },
   },
   data() {
