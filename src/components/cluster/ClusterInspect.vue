@@ -22,7 +22,7 @@
               @change="doSearchTopic"
             ></el-input>
           </el-col>
-          <el-col :span="1" 
+          <el-col :span="1"
             ><div class="grid-content bg-purple">
               <el-button type="primary" @click="addTopic" icon="el-icon-plus">
                 NEW
@@ -53,8 +53,9 @@
 
       <el-main>
         <el-table :data="tableData" v-loading="loading">
-          <el-table-column prop="topicName" label="Topic"> </el-table-column>
-          <el-table-column prop="partitionSize" label="PartitionSize">
+          <el-table-column prop="topicName" label="Topic" sortable>
+          </el-table-column>
+          <el-table-column prop="partitionSize" label="PartitionSize" sortable>
           </el-table-column>
           <el-table-column prop="operation" label="Operation">
             <template slot-scope="scope">
