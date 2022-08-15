@@ -86,7 +86,7 @@ export default {
     partitions: {
       type: Number,
       require: true,
-      default: 0
+      default: 0,
     },
   },
   data() {
@@ -137,6 +137,11 @@ export default {
           return resp.json();
         })
         .then((payload) => {
+          if (payload && payload.stackTrace) {
+            this.$message.error(payload.stackTrace);
+            this.$refs.messageList.fillMessage([]);
+            return;
+          }
           this.messages = payload;
           this.$refs.messageList.fillMessage(payload);
         });
