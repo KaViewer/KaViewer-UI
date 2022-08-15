@@ -20,6 +20,11 @@
             placeholder="Partition, default 0"
           >
             <el-option
+              :label="partition"
+              :value="0"
+              :key="0"
+            ></el-option>
+            <el-option
               v-for="partition in partitions"
               :label="partition"
               :value="partition"
