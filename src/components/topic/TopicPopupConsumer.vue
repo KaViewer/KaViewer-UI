@@ -19,6 +19,7 @@
             v-model="ruleForm.partition"
             placeholder="Partition, default 0"
           >
+            <el-option label="ALL" :value="-1" :key="-1"></el-option>
             <el-option label="0" :value="0" :key="0"></el-option>
             <el-option
               v-for="partition in partitions"
@@ -93,7 +94,7 @@ export default {
     return {
       messages: [],
       ruleForm: {
-        partition: 0,
+        partition: -1,
         size: "50",
         keyDeserializer: "StringDeserializer",
         valueDeserializer: "StringDeserializer",
@@ -173,5 +174,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-</style>
