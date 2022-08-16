@@ -114,13 +114,7 @@ export default {
     return {
       messages: [],
       form: {
-        messageHeaders: [
-          {
-            uniqueTimestamp: "",
-            key: "",
-            value: "",
-          },
-        ],
+        messageHeaders: [],
         messageKey: "",
         messageContent: "",
       },
@@ -152,6 +146,9 @@ export default {
   },
   methods: {
     messageHeadersValidated() {
+      if(!this.form.messageHeaders){
+        return [];
+      }
       return this.form.messageHeaders.filter((data) => data.key && data.value);
     },
     send() {
@@ -203,7 +200,6 @@ export default {
       this.form.messageKey = "";
       this.form.messageContent = "";
       this.form.messageHeaders = "";
-      this.metaRuleForm.partition = 0;
     },
     removeDomain(item) {
       var index = this.form.messageHeaders.indexOf(item);
