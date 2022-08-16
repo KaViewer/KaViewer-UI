@@ -14,7 +14,9 @@
             <b>{{ topic }}</b>
           </el-form-item>
         </el-card>
+         <!-- <el-button type="primary" icon="el-icon-edit" circle></el-button> -->
         <el-form-item label="Partition" prop="partition">
+           <el-tooltip class="item" effect="dark" content="If set partition may get records less than size" placement="right-end">
           <el-select
             v-model="ruleForm.partition"
             placeholder="Partition, default 0"
@@ -27,15 +29,15 @@
               :value="partition"
               :key="partition"
             ></el-option>
-            <!-- <el-option label="200" value="200"></el-option> -->
           </el-select>
+        </el-tooltip>
         </el-form-item>
         <el-form-item label="Size" prop="size">
           <el-select v-model="ruleForm.size" placeholder="Size, default 100">
             <el-option label="10" value="10"></el-option>
             <el-option label="50" value="50"></el-option>
             <el-option label="100" value="100"></el-option>
-            <el-option label="200" value="200"></el-option>
+            <!-- <el-option label="200" value="200"></el-option> -->
           </el-select>
         </el-form-item>
         <el-form-item label="KeyDeserializer" prop="keyDeserializer">
