@@ -114,10 +114,11 @@
         </template>
       </el-table-column>
       <el-table-column label="Offset" sortable prop="offset"> </el-table-column>
+      <el-table-column label="Partition" sortable prop="partition"> </el-table-column>
 
-      <el-table-column label="Header" prop="headers">
+      <el-table-column label="Key" prop="key">
         <template slot-scope="scope">
-          {{ tripHeader(scope.row.headers) }}
+          {{ tripHeader(scope.row.key) }}
         </template>
       </el-table-column>
       <el-table-column label="Content" prop="content">
@@ -224,6 +225,7 @@ export default {
         this.tableData.push({
           headers: JSON.stringify(element.headers),
           offset: element.offset,
+          partition: element.partition,
           key: element.key,
           content: element.value,
           timestamp: element.timestamp,
