@@ -114,7 +114,8 @@
         </template>
       </el-table-column>
       <el-table-column label="Offset" sortable prop="offset"> </el-table-column>
-      <el-table-column label="Partition" sortable prop="partition"> </el-table-column>
+      <el-table-column label="Partition" sortable prop="partition">
+      </el-table-column>
 
       <el-table-column label="Key" prop="key">
         <template slot-scope="scope">
@@ -126,7 +127,19 @@
           {{ tripHeader(scope.row.content) }}
         </template>
       </el-table-column>
-      <el-table-column label="TimeStamp" sortable prop="timestamp">
+      <el-table-column label="TimeStamp" sortable prop="timestamp" width="150">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" placement="top">
+            <div slot="content">
+              TimestampType: {{ scope.row.timestampType }}
+              <br />
+              TimeStamp: {{ scope.row.timestamp }}
+            </div>
+            <span>
+              {{ dateFormatter(scope.row.timestamp) }}
+            </span>
+          </el-tooltip>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -169,6 +182,23 @@ export default {
       return (msg) => {
         if (!msg || msg === "{}") return "";
         return msg.substr(0, 10) + "...";
+      };
+    },
+    dateFormatter() {
+      return (datetime) => {
+        if (datetime) {
+          datetime = new Date(datetime);
+          let y = datetime.getFullYear();
+          let m = datetime.getMonth() + 1;
+          let d = datetime.getDate();
+          let h = datetime.getHours();
+          let min = datetime.getMonth();
+          let s = datetime.getSeconds();
+          let ms = datetime.getMilliseconds();
+          const format = `${y}-${m}-${d} ${h}:${min}:${s}.${ms}`;
+          return format;
+        }
+        return "";
       };
     },
   },
@@ -219,6 +249,9 @@ export default {
         this.$message.error("Invalid Content to parser as Json");
       }
     },
+    timestampHover(row) {
+      console.log(row);
+    },
     fillMessage(payload) {
       this.tableData = [];
       payload.forEach((element) => {
@@ -229,6 +262,7 @@ export default {
           key: element.key,
           content: element.value,
           timestamp: element.timestamp,
+          timestampType: element.timestampType,
         });
       });
       this.originTableData = this.tableData;
