@@ -71,6 +71,18 @@
                   icon="el-icon-s-promotion "
                   @click="popUpTopicProducer(scope.row)"
                 ></el-button>
+                <template>
+                  <el-popconfirm
+                    title="Are you sure to delete it ?"
+                    @confirm="deleteTopic(scope.row.topicName)"
+                  >
+                    <el-button
+                      slot="reference"
+                      type="primary"
+                      icon="el-icon-delete"
+                    ></el-button>
+                  </el-popconfirm>
+                </template>
               </el-button-group>
             </template>
           </el-table-column>
@@ -85,6 +97,7 @@ import TopicPopupProducer from "../topic/TopicPopupProducer.vue";
 import TopicPopupCreate from "../topic/TopicPopupCreate.vue";
 import NavMenu from "../common/NavMenu.vue";
 import getApi from "../../router/baseUrl";
+import { deleteTopic } from "../../service/TopicService";
 const url = getApi("/topic/meta");
 
 export default {
@@ -132,6 +145,20 @@ export default {
     },
     addTopic() {
       this.dialogFormVisibleTopicCreate = true;
+    },
+    deleteTopic(topic) {
+      if (!topic) {
+        return;
+      }
+      deleteTopic(this.clusterName, topic).then((resp) => {
+        if (resp.ok) {
+          this.load(this.clusterName);
+          this.$message({
+            message: `Delete Topic [${topic}] Success !`,
+            type: "success",
+          });
+        }
+      });
     },
     popUpTopic(row) {
       const { topicName, partitionSize } = row;

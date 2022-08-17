@@ -146,6 +146,10 @@ export default {
       deleteCluster(clusterName).then((resp) => {
         if (resp.ok) {
           this.load();
+          this.$message({
+            message: `Delete Cluster [${clusterName}] Success !`,
+            type: "success",
+          });
         }
       });
     },
