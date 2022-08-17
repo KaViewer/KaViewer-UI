@@ -38,7 +38,17 @@
                   name: 'ClusterInspect',
                   params: { clusterName: scope.row.cluster },
                 }"
-                >{{ scope.row.cluster }}</router-link
+              >
+                <el-tag
+                  id="cluster-name"
+                  effect="light"
+                  :type="
+                    ['success', 'info', 'warning', 'danger'][
+                      scope.row.index % 4
+                    ]
+                  "
+                  >{{ scope.row.cluster }}</el-tag
+                ></router-link
               >
             </template>
           </el-table-column>
@@ -114,6 +124,7 @@ export default {
     load() {
       getClusterList().then((payload) => {
         let items = [];
+        let index = 0;
         payload.forEach((element) => {
           const hosts = element.brokers.map((broker) => {
             return broker.host + ":" + broker.port;
@@ -121,6 +132,7 @@ export default {
           items.push({
             cluster: element.cluster,
             hosts: hosts,
+            index: index++,
           });
         });
         this.tableData = items;
@@ -177,13 +189,8 @@ export default {
 </script>
 
 <style scoped>
-/* .el-header {
-  background-color: #b3c0d1;
-  color: #333;
-  line-height: 60px;
+#cluster-name {
+  font-size: 1pc;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.el-aside {
-  color: #333;
-} */
 </style>
