@@ -1,20 +1,29 @@
 <template>
   <div>
-    <div class="line"></div>
+    <div class="line">
+      <el-row :gutter="20">
+        <el-col :span="8"><div class="grid-content bg-purple"><Logo /></div></el-col>
+        <el-col :span="12" :offset="14"
+          ><div>
+            <GithubIcon />
+          </div>
+        </el-col>
+      </el-row>
+    </div>
     <el-menu
       :default-active="clusters"
       class="el-menu-kaviewer"
       mode="horizontal"
       background-color="#409EFF"
-      text-color="#3C50BE"
+      text-color="#000"
       active-text-color="#fff"
     >
-      <el-menu-item index="1">
+      <el-menu-item index="1" style="border-bottom-color:#409EFF;">
         <router-link to="/">Clusters</router-link>
       </el-menu-item>
-      <el-menu-item index="2">
-        <router-link to="/">Others</router-link>
-      </el-menu-item>
+      <!-- <el-menu-item index="2" disabled>
+        <router-link to="/">TODO</router-link>
+      </el-menu-item> -->
     </el-menu>
   </div>
 </template>
@@ -25,8 +34,13 @@
  }
 </style>
 <script>
+import GithubIcon from "./GithubIcon.vue";
+import Logo from './Logo.vue';
 export default {
-  name: "SideBar",
+  components: {
+    GithubIcon,
+    Logo,
+  },
   data() {
     return {
       clusters: "1",
