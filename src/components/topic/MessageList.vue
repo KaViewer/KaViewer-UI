@@ -42,6 +42,7 @@
                 type="primary"
                 icon="el-icon-s-grid"
                 size="mini"
+                :disabled="!detailsDialogShowData"
                 @click="jsonFormat(detailsDialogShowData)"
               >
               </el-button>
@@ -56,6 +57,7 @@
                 type="primary"
                 icon="el-icon-news"
                 size="mini"
+                :disabled="!detailsDialogShowData"
                 @click="jsonViewer(detailsDialogShowData)"
               ></el-button>
             </el-tooltip>
@@ -63,6 +65,7 @@
               type="primary"
               icon="el-icon-document-copy"
               size="mini"
+              :disabled="!detailsDialogShowData"
               @click="copyDetails(detailsDialogShowData)"
             ></el-button>
           </el-button-group>
@@ -206,7 +209,7 @@ export default {
     popUpDetails(title, data) {
       this.detailsDialogVisibleTitle = title;
       this.detailsDialogVisible = true;
-      this.detailsDialogShowData = data;
+      this.detailsDialogShowData = data == "{}" ? "" : data;
     },
     jsonFormat(data) {
       this.detailsDialogShowData = JSON.stringify(JSON.parse(data), null, 4);
