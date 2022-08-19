@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="line">
-      <el-row :gutter="20">
-        <el-col :span="8"><div class="grid-content bg-purple"><Logo /></div></el-col>
-        <el-col :span="12" :offset="14"
+      <el-row >
+        <el-col :span="7"><div><Logo /></div></el-col>
+        <el-col :span="1" :offset="15"
           ><div>
             <GithubIcon />
           </div>
