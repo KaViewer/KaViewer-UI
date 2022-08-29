@@ -13,7 +13,7 @@
               ></el-input>
             </div>
           </el-col>
-          <el-col :span="1"
+          <el-col :span="1" v-if="this.permission&&this.permission.cluster&& this.permission.cluster.create "
             ><div>
               <el-button type="primary" @click="addCluster" icon="el-icon-plus">
                 NEW
@@ -73,7 +73,7 @@
           <!-- <el-table-column prop="Date" label="Date" width="140">
           </el-table-column> -->
           <el-table-column prop="operation" label="Operation">
-            <template slot-scope="scope">
+            <template slot-scope="scope" :permission = "permission">
               <el-button-group>
                 <el-button
                   type="primary"
@@ -86,6 +86,7 @@
                     @confirm="deleteCluster(scope.row.cluster)"
                   >
                     <el-button
+                      v-if="permission&&permission.cluster&&permission.cluster.delete"
                       slot="reference"
                       type="primary"
                       icon="el-icon-delete"
@@ -104,6 +105,7 @@
 import ClusterPopup from "./ClusterPopup.vue";
 import NavMenu from "../common/NavMenu.vue";
 import { getClusterList, deleteCluster } from "../../service/ClusterService";
+import { getPermissionList } from "../../service/PermissionService";
 import getApi from "../../router/baseUrl";
 
 export default {
@@ -114,6 +116,7 @@ export default {
   },
   data() {
     return {
+      permission: true,
       searchCluster: "",
       dialogFormVisible: false,
       tableData: [],
@@ -187,6 +190,9 @@ export default {
     },
   },
   created() {
+    getPermissionList().then(resp=>{
+      this.permission = resp
+    })
     this.load();
   },
 };

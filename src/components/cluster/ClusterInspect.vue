@@ -22,7 +22,13 @@
               @change="doSearchTopic"
             ></el-input>
           </el-col>
-          <el-col :span="1"
+          <el-col
+            :span="1"
+            v-if="
+              this.permission &&
+              this.permission.topic &&
+              this.permission.topic.create
+            "
             ><div class="grid-content bg-purple">
               <el-button type="primary" @click="addTopic" icon="el-icon-plus">
                 NEW
@@ -58,7 +64,7 @@
           <el-table-column prop="partitionSize" label="PartitionSize" sortable>
           </el-table-column>
           <el-table-column prop="operation" label="Operation">
-            <template slot-scope="scope">
+            <template slot-scope="scope" :permission="permission">
               <el-button-group>
                 <!-- <el-button type="primary" icon="el-icon-edit"></el-button> -->
                 <el-button
@@ -67,6 +73,11 @@
                   @click="popUpTopic(scope.row)"
                 ></el-button>
                 <el-button
+                  v-if="
+                    permission &&
+                    permission.consumer &&
+                    permission.consumer.write
+                  "
                   type="primary"
                   icon="el-icon-s-promotion "
                   @click="popUpTopicProducer(scope.row)"
@@ -77,6 +88,11 @@
                     @confirm="deleteTopic(scope.row.topicName)"
                   >
                     <el-button
+                      v-if="
+                        permission &&
+                        permission.topic &&
+                        permission.topic.delete
+                      "
                       slot="reference"
                       type="primary"
                       icon="el-icon-delete"
@@ -98,6 +114,7 @@ import TopicPopupCreate from "../topic/TopicPopupCreate.vue";
 import NavMenu from "../common/NavMenu.vue";
 import getApi from "../../router/baseUrl";
 import { deleteTopic } from "../../service/TopicService";
+import { getPermissionList } from "../../service/PermissionService";
 const url = getApi("/topic/meta");
 
 export default {
@@ -110,6 +127,7 @@ export default {
   },
   data() {
     return {
+      permission: true,
       searchTopic: "",
       loading: true,
       clusterName: this.$route.params.clusterName,
@@ -189,6 +207,9 @@ export default {
     },
   },
   created() {
+    getPermissionList().then((resp) => {
+      this.permission = resp;
+    });
     this.load(this.clusterName);
   },
 };
