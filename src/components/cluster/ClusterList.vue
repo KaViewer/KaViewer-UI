@@ -53,6 +53,7 @@
             </template>
           </el-table-column>
           <el-table-column
+            v-if="this.permission&&this.permission.cluster&&this.permission.cluster.read"
             type="expand"
             prop="hosts"
             label="Brokers"
