@@ -16,5 +16,5 @@ const requestOptions = {
     headers: headers,
 };
 export function deleteCluster(clusterName) {
-    return fetch(getApi([domain, clusterName].join("/")), requestOptions)
+    return fetch(getApi(domain) + "?cluster=" + clusterName, requestOptions)
 }

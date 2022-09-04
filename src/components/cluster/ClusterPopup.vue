@@ -51,12 +51,12 @@
 </template>
 <script>
 import getApi from "../../router/baseUrl";
-const clusterNameValidator = (rule,value = "", cb)=> {
-  if(value.indexOf('/') === -1){
-    return  cb()
-  }
-  return cb(new Error("Can not contain '/' in ClusterName"))
-}
+// const clusterNameValidator = (rule,value = "", cb)=> {
+//   if(value.indexOf('/') === -1){
+//     return  cb()
+//   }
+//   return cb(new Error("Can not contain '/' in ClusterName"))
+// }
 
 export default {
   name: "ClusterPopup",
@@ -83,7 +83,7 @@ export default {
       rules: {
         clusterName: [
           { required: true, message: "Input Cluster Name", trigger: "blur" },
-          { validator: clusterNameValidator, trigger: "blur" },
+          // { validator: clusterNameValidator, trigger: "blur" },
         ],
         bootstrapServers: [
           {
