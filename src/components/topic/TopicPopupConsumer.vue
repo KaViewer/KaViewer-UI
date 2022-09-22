@@ -41,7 +41,7 @@
           <el-tooltip
             class="item"
             effect="dark"
-            content="Start fetch message from specift offset"
+            content="Start fetch message from specified offset"
             placement="right-end"
           >
             <el-input v-model="ruleForm.offset"> </el-input>
