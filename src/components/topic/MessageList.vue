@@ -195,7 +195,7 @@ export default {
           let m = datetime.getMonth() + 1;
           let d = datetime.getDate();
           let h = datetime.getHours();
-          let min = datetime.getMonth();
+          let min = datetime.getMinutes();
           let s = datetime.getSeconds();
           let ms = datetime.getMilliseconds();
           const format = `${y}-${m}-${d} ${h}:${min}:${s}.${ms}`;
