@@ -190,16 +190,10 @@ export default {
     dateFormatter() {
       return (datetime) => {
         if (datetime) {
-          datetime = new Date(datetime);
-          let y = datetime.getFullYear();
-          let m = datetime.getMonth() + 1;
-          let d = datetime.getDate();
-          let h = datetime.getHours();
-          let min = datetime.getMinutes();
-          let s = datetime.getSeconds();
-          let ms = datetime.getMilliseconds();
-          const format = `${y}-${m}-${d} ${h}:${min}:${s}.${ms}`;
-          return format;
+          const d = new Date(datetime) 
+          const pad = (n, s = 2) => `${new Array(s).fill(0)}${n}`.slice(-s);
+          return `${pad(d.getFullYear(), 4)}-${pad(d.getMonth() + 1)}-${pad( d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad( d.getSeconds())}.${pad(d.getMilliseconds(), 3)}`;
+
         }
         return "";
       };
