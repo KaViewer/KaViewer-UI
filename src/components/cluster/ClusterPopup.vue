@@ -36,7 +36,30 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="JAAS Config" prop="jaasConfig">
-        <el-input v-model="ruleForm.jaasConfig" :disabled="editView"></el-input>
+        <el-input v-model="ruleForm.jaasConfig" :disabled="editView"
+        placeholder='org.apache.kafka.common.security.plain.PlainLoginModule required username="<USERNAME>" password="<PASSWORD>"; '></el-input>
+      </el-form-item>
+      <el-form-item label="Security Protocol">
+        <el-radio-group
+          v-model="ruleForm.securityProtocol"
+          size="small"
+          :disabled="editView || !(!!ruleForm.jaasConfig)"
+        >
+          <el-radio border label="PLAINTEXT"></el-radio>
+          <el-radio border label="SSL"></el-radio>
+          <el-radio border label="SASL_PLAINTEXT"></el-radio>
+          <el-radio border label="SASL_SSL"></el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="Sasl Mechanism">
+        <el-radio-group
+          v-model="ruleForm.saslMechanism"
+          size="small"
+          :disabled="editView || !(!!ruleForm.jaasConfig)"
+        >
+          <el-radio border label="GSSAPI"></el-radio>
+          <el-radio border label="PLAIN"></el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">{{
@@ -79,6 +102,8 @@ export default {
         clusterName: "",
         bootstrapServers: "",
         jaasConfig: "",
+        securityProtocol: "",
+        saslMechanism:"",
       },
       rules: {
         clusterName: [
